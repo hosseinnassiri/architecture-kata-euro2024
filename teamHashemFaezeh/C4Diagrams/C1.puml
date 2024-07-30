@@ -1,0 +1,47 @@
+@startuml C1 System Context Diagram
+  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+  !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+  !include FONTAWESOME/users.puml
+  !include FONTAWESOME/car.puml
+  !include FONTAWESOME/cloud.puml
+  !include FONTAWESOME/aws.puml
+
+/'
+ ' Block comments use this style.
+ '
+ '/
+title System Context Diagram (C1) for Euro 2024 Ticketing System
+
+System_Ext(aws, "Amazon Web Services", $sprite="aws", "RDS, EC2, S3,...")
+System_Ext(actionControlSystem, "Action Control System")
+
+System_Ext(actors, "Actors") {
+  Person_Ext(user, "User",$sprite="users")
+  Person(admin, "Admin",$sprite="users")
+}
+
+
+System_Boundary(ticketingSystem, "Ticketing System") {
+  System(ticketingSystem2, "Ticketing System", $sprite="cloud")
+}
+
+
+
+
+
+System_Boundary(esp, "External Service Providers") {
+  System_Ext(socialMedia, "Social Media", $sprite="Social Media", "Facebook, Google, ...")
+}
+
+Rel(user, ticketingSystem, "Requests tickets", "HTTPS")
+Rel(user, ticketingSystem, "Manages profile", "HTTPS")
+Rel(user, ticketingSystem, "Registers to", "HTTPS")
+Rel(admin, ticketingSystem, "Review and approve tickets via", "HTTPS")
+Rel(ticketingSystem, aws, "Runs on\n& Uses")
+Rel(user, socialMedia, "authenticates using")
+Rel(ticketingSystem, socialMedia, "authenticates users using")
+Rel(actionControlSystem, ticketingSystem, "verifies tickets using", "HTTPS")
+
+
+SHOW_LEGEND()
+@enduml
