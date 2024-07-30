@@ -21,7 +21,6 @@ journey
         Receives confirmation: 7: User
 ```
 
-
 ## User Registration and Authentication
 
 1. New user signs up:

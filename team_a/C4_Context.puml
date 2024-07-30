@@ -1,0 +1,33 @@
+@startuml systemcontext
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+' uncomment the following line and comment the first to use locally
+' !include C4_Context.puml
+
+'LAYOUT_TOP_DOWN()
+'LAYOUT_AS_SKETCH()
+LAYOUT_WITH_LEGEND()
+
+title System context for UEFA EURO 2024 Ticketing
+
+Person(customer, "Personal Customer", "A customer who's interested in watching the game in the stadium.")
+
+Enterprise_Boundary(c0, "UEFA EURO 2024 Ticketing") {
+    System(ticketing_portal, "UEFA EURO 2024 Ticketing Portal", "Allows customers to view fixtures and request tickets.")
+
+    Person_Ext(uefa, "UEFA admin", "UEFA administrator user who takes care of fixtures, ticket approvals, lottery draw.")
+
+    System_Ext(notification_system, "Notification system", "Sends emails and notifications to customers.")
+
+    System_Ext(payment_gateway, "Payment Gateway system", "Performs different methods of payments")
+}
+
+Rel_Neighbor(customer, ticketing_portal, "Uses")
+Rel_Back(customer, notification_system, "Sends e-mails to")
+
+Rel_D(ticketing_portal, notification_system, "Sends e-mail using")
+Rel_R(ticketing_portal, payment_gateway, "Sends payment requests")
+
+Rel_D(uefa, ticketing_portal, "Uses")
+
+Lay_U(notification_system, customer)
+@enduml
