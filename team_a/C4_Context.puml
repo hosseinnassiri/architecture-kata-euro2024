@@ -9,12 +9,12 @@ LAYOUT_WITH_LEGEND()
 
 title System context for UEFA EURO 2024 Ticketing
 
-Person(customer, "Personal Customer", "A customer who's interested in watching the game in the stadium.")
+Person_Ext(customer, "Personal Customer", "A customer who's interested in watching the game in the stadium.")
 
 Enterprise_Boundary(c0, "UEFA EURO 2024 Ticketing") {
     System(ticketing_portal, "UEFA EURO 2024 Ticketing Portal", "Allows customers to view fixtures and request tickets.")
 
-    Person_Ext(uefa, "UEFA admin", "UEFA administrator user who takes care of fixtures, ticket approvals, lottery draw.")
+    Person(uefa, "UEFA admin", "UEFA administrator user who takes care of fixtures, ticket approvals, lottery draw.")
 
     System_Ext(notification_system, "Notification system", "Sends emails and notifications to customers.")
 
