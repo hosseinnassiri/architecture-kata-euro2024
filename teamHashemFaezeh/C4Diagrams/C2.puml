@@ -1,0 +1,34 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+
+!include FONTAWESOME/users.puml
+
+
+System_Boundary(CI_CLOUD, "CI-Cloud") {
+  Container(profileManager, "User Profile Manager","Registration, Authentication and Profile Management", $sprite="users")
+  Container(ticketInfoManagement, "Ticket Info Management", "Manages Ticket Information Including Ticket Category, Prices, Fixture, ...")
+  Container(lotteryRequestManagement, "Lottery Request Management System", "Manages Lottery Requests")
+  Container(lottery, "Lottery System", "Manages the draw and winners of the lottery")
+  Container(notif, "Notification System", "Sends Notifications to Users through Email, SMS,...")
+  Container(fcfsRequestManagement, "FCFS Request Management system", "Manages FCFS requests")
+  Container(paymentSystem, "Payement System", "Management Payment")
+  Container(reporting, "Reporting System",  "Reporting and Analytics")
+  Container(ticketDelivery, "Ticket Delivery System", "Delivers Tickets to Users via email or mobile app")
+  Container(userInterface, "UserInterface")
+
+}
+
+Container(externalSystems, "External Systems") {
+  Container(payementGateway, "Payment Gateway", "External Payment System")
+  Container(email, "External Notification System", "External Notification System")
+  Container(socialMedia, "Social Media", "Facebook, Google, ...")
+  }
+
+
+SHOW_LEGEND()
+@enduml
