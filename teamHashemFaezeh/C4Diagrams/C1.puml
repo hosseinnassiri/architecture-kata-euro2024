@@ -12,7 +12,6 @@
  '/
 title System Context Diagram (C1) for Euro 2024 Ticketing System
 
-System_Ext(aws, "Amazon Web Services", $sprite="aws", "RDS, EC2, S3,...")
 System_Ext(actionControlSystem, "Action Control System")
 
 System_Ext(actors, "Actors") {
@@ -26,18 +25,17 @@ System_Boundary(ticketingSystem, "Ticketing System") {
 }
 
 
-
-
-
-System_Boundary(esp, "External Service Providers") {
   System_Ext(socialMedia, "Social Media", $sprite="Social Media", "Facebook, Google, ...")
-}
+
+
+  System_Ext(paymentGateway, "Payment Gateway", $sprite="Payment Gateway", "Paypal, Stripe, ...")
+
 
 Rel(user, ticketingSystem, "Requests tickets", "HTTPS")
 Rel(user, ticketingSystem, "Manages profile", "HTTPS")
 Rel(user, ticketingSystem, "Registers to", "HTTPS")
 Rel(admin, ticketingSystem, "Review and approve tickets via", "HTTPS")
-Rel(ticketingSystem, aws, "Runs on\n& Uses")
+Rel(ticketingSystem, paymentGateway, "manages payments through", "HTTPS")
 Rel(user, socialMedia, "authenticates using")
 Rel(ticketingSystem, socialMedia, "authenticates users using")
 Rel(actionControlSystem, ticketingSystem, "verifies tickets using", "HTTPS")
