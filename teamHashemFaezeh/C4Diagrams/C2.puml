@@ -9,7 +9,7 @@
 !include FONTAWESOME/users.puml
 
 
-System_Boundary(CI_CLOUD, "CI-Cloud") {
+System_Boundary(ticketManagementSystem, "Ticket Management System") {
   Container(profileManager, "User Profile Manager","Registration, Authentication and Profile Management", $sprite="users")
   Container(ticketInfoManagement, "Ticket Info Management", "Manages Ticket Information Including Ticket Category, Prices, Fixture, ...")
   Container(lotteryRequestManagement, "Lottery Request Management System", "Manages Lottery Requests")
@@ -19,15 +19,39 @@ System_Boundary(CI_CLOUD, "CI-Cloud") {
   Container(paymentSystem, "Payement System", "Management Payment")
   Container(reporting, "Reporting System",  "Reporting and Analytics")
   Container(ticketDelivery, "Ticket Delivery System", "Delivers Tickets to Users via email or mobile app")
-  Container(userInterface, "UserInterface")
+  Container_Boundary(userInterfaceBoundary, "User Interface") {
+    Container(webInterface, "User Interface", "User Interface for Ticket Management System")
+    Container(mobileApp, "Mobile App", "Mobile App for Ticket Management System")
+  }
+
 
 }
 
-Container(externalSystems, "External Systems") {
-  Container(payementGateway, "Payment Gateway", "External Payment System")
-  Container(email, "External Notification System", "External Notification System")
-  Container(socialMedia, "Social Media", "Facebook, Google, ...")
-  }
+System_Ext(payementGateway, "Payment Gateway", "External Payment System")
+System_Ext(email, "External Notification System", "External Notification System")
+System_Ext(socialMedia, "Social Media", "Facebook, Google, ...")
+
+
+Rel(profileManager, socialMedia, "Manages authentications through", "HTTPS")
+Rel(lotteryRequestManagement, profileManager, "gets user info", "HTTPS")
+Rel(lotteryRequestManagement, ticketInfoManagement, "gets ticket info", "HTTPS")
+Rel(lotteryRequestManagement, lottery, "runs draws using", "HTTPS")
+Rel(lotteryRequestManagement, notif, "sends notifications to winners using", "HTTPS")
+Rel(lottery, lotteryRequestManagement, "sends lottery info to", "HTTPS")
+Rel(fcfsRequestManagement, profileManager, "gets user info", "HTTPS")
+Rel(fcfsRequestManagement, ticketInfoManagement, "gets ticket info", "HTTPS")
+Rel(fcfsRequestManagement, notif, "sends notifications to users using", "HTTPS")
+Rel(paymentSystem, payementGateway, "manages payments through", "HTTPS")
+Rel(notif, email, "sends emails through", "SMTP")
+Rel(notif, mobileApp, "sends notifications through", "HTTPS")
+Rel(ticketDelivery, email, "sends tickets through", "SMTP")
+Rel(ticketDelivery, mobileApp, "sends tickets through", "HTTPS")
+'Rel(reporting, profileManager, "gets user info", "HTTPS")
+'Rel(reporting, ticketInfoManagement, "gets ticket info", "HTTPS")
+'Rel(reporting, lottery, "gets lottery info", "HTTPS")
+'Rel(reporting, fcfsRequestManagement, "gets FCFS requests info", "HTTPS")
+'Rel(reporting, paymentSystem, "gets payment info", "HTTPS")
+'Rel(reporting, ticketDelivery, "gets ticket delivery info", "HTTPS")
 
 
 SHOW_LEGEND()
