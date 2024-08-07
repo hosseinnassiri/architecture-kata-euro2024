@@ -29,12 +29,14 @@ C4Container
 
     System_Ext(payment_gateway, "Payment Gateway system", "Performs different methods of payments")
 
-    System_Ext(social_media, "Social media IDP", "Google, Microsoft, Twitter, ....")
+    System_Ext(social_media, "Social media logins", "Google, Microsoft, Facebook, Twitter, ....")
 
     Rel(uefa, backoffice, "Uses", "HTTPS")
     UpdateRelStyle(uefa, backoffice, $offsetY="10", $offsetX="0")
+
     Rel(customer, portal, "Uses", "HTTPS")
     UpdateRelStyle(customer, portal, $offsetY="-40")
+
     Rel(customer, mobile_app, "Uses")
     UpdateRelStyle(customer, mobile_app, $offsetY="-30")
 
