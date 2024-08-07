@@ -12,17 +12,19 @@ C4Container
 
         ContainerDb(portal_db, "Database", "Mongo DB", "Stores fixtures, tickets requests, etc.")
 
-        Container_Boundary(c1_backoffice, "UEFA Back Office") {
+        Boundary(c1_backoffice, "UEFA Back Office") {
             Person(uefa, "UEFA admin", "UEFA administrator who manages <br />fixtures, ticket approvals, lottery draw.")
             Container(backoffice, "Web Application", "ASP .NET 8.0", "Back office web application")
             ContainerDb(backoffice_db, "Database", "SQL Database", "Stores teams, stadiums, fixtures, etc.")
 
-            Container_Boundary(c1_lottery, "Lottery") {
-                Container(lottery, "Serverless", "ASP .NET 8.0", "Lottery drawing service")
+            Boundary(c1_lottery, "Lottery") {
+                Container(lottery, "Service", "Serverless, .NET 8.0", "Lottery drawing service")
                 ContainerDb(lottery_db, "Database", "Mongo DB", "Stores fixtures, ticket requests")
             }
         }
     }
+
+    System_Ext(idp, "Identity Provider", "AAD B2C or OKTA, ...")
 
     System_Ext(payment_gateway, "Payment Gateway system", "Performs different methods of payments")
 
@@ -32,6 +34,11 @@ C4Container
     UpdateRelStyle(customer, portal, $offsetY="-40")
     Rel(customer, mobile_app, "Uses")
     UpdateRelStyle(customer, mobile_app, $offsetY="-30")
+
+    Rel(idp, backend_api, "Authorizes", "HTTPS")
+    UpdateRelStyle(idp, backend_api, $offsetY="10", $offsetX="0")
+
+    Rel(idp, customer, "Authenticates", "HTTPS")
 
     Rel(backoffice, portal_db, "Updates fixtures", "async, messages")
     UpdateRelStyle(backoffice, portal_db)
@@ -53,10 +60,15 @@ C4Container
 
     Rel(uefa, lottery, "Triggers the draw", "HTTPS")
 
+    Rel(backend_api, backoffice_db, "Updates tickets requests, fans information, payments", "async, messages")
+    UpdateRelStyle(backend_api, backoffice_db, $offsetY="-50", , $offsetX="-30")
+
     Rel(notification_system, customer, "Sends e-mails to")
     UpdateRelStyle(notification_system, customer, $offsetX="-45")
+
     Rel(backend_api, notification_system, "Sends e-mails using", "sync, SMTP")
     UpdateRelStyle(backend_api, notification_system, $offsetY="-60")
+
     Rel(backend_api, payment_gateway, "Uses", "sync/async, XML/HTTPS")
     UpdateRelStyle(backend_api, payment_gateway, $offsetY="-50", $offsetX="-140")
 ```
