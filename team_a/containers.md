@@ -15,10 +15,11 @@ C4Container
         Boundary(c1_backoffice, "UEFA Back Office") {
             Person(uefa, "UEFA admin", "UEFA administrator who manages <br />fixtures, ticket approvals, lottery draw.")
             Container(backoffice, "Web Application", "ASP .NET 8.0", "Back office web application")
+            Container(ticket_delivery, "Ticket Delivery", ".NET 8.0", "Service for delivering tickets to users")
             ContainerDb(backoffice_db, "Database", "SQL Database", "Stores teams, stadiums, fixtures, etc.")
 
             Boundary(c1_lottery, "Lottery") {
-                Container(lottery, "Service", "Serverless, .NET 8.0", "Lottery drawing service")
+                Container(lottery, "Lottery Service", "Serverless, .NET 8.0", "Lottery drawing service")
                 ContainerDb(lottery_db, "Database", "Mongo DB", "Stores fixtures, ticket requests")
             }
         }
@@ -27,6 +28,8 @@ C4Container
     System_Ext(idp, "Identity Provider", "AAD B2C or OKTA, ...")
 
     System_Ext(payment_gateway, "Payment Gateway system", "Performs different methods of payments")
+
+    System_Ext(social_media, "Social media IDP", "Google, Microsoft, Twitter, ....")
 
     Rel(uefa, backoffice, "Uses", "HTTPS")
     UpdateRelStyle(uefa, backoffice, $offsetY="10", $offsetX="0")
