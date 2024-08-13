@@ -2,14 +2,9 @@
   !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
   !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
   !include FONTAWESOME/users.puml
-  !include FONTAWESOME/car.puml
   !include FONTAWESOME/cloud.puml
-  !include FONTAWESOME/aws.puml
 
-/'
- ' Block comments use this style.
- '
- '/
+
 title System Context Diagram (C1) for Euro 2024 Ticketing System
 
 System_Ext(actionControlSystem, "Action Control System")
@@ -38,6 +33,7 @@ Rel(admin, ticketingSystem, "Review and approve tickets via", "HTTPS")
 Rel(ticketingSystem, paymentGateway, "manages payments through", "HTTPS")
 Rel(user, socialMedia, "authenticates using")
 Rel(ticketingSystem, socialMedia, "authenticates users using")
+Rel(ticketingSystem, paymentGateway, "uses for payments")
 Rel(actionControlSystem, ticketingSystem, "verifies tickets using", "HTTPS")
 
 
