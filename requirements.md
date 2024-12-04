@@ -28,9 +28,12 @@
   - Customer could pay the money by installment.
   - Tellers issues the slips for each payment to the customer 
 
-- Teller converts the fund to the destination currency. Teller uses the rate the already provided by the manager or asks the back office.
+
+## no-name
+- The destination backoffice finds the matches for the transaction.  
+- - Teller converts the fund to the destination currency. Teller uses the rate the already provided by the manager or asks the back office.
 - Backoffice empoloyee calls the branch in the destination country and asks to transfer the moeny to the receiver and gives them the receiver's information.
-- 
+
 
   
 
